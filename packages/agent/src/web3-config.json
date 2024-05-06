@@ -1,0 +1,15 @@
+{
+  "configs": [
+    {
+      "basePath": "/web3/rpc",
+      "hostname": "0.0.0.0",
+      "port": 2999,
+      "wallets": [
+        {
+          "privateKeys": ["8f2695a99c416ab9241fc75ae53f90b083aecff9e4463e046a1527f456b502c6"],
+          "path": "/0x0c45D104d250B72301A7158fb27A8A4D4567b9Ce"
+        }
+      ]
+    }
+  ]
+}

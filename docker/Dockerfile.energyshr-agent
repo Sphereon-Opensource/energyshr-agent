@@ -1,0 +1,22 @@
+FROM node:lts-bullseye
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+RUN corepack install -g pnpm@8.15.7
+RUN corepack enable
+SHELL ["/bin/bash", "-c"]
+
+WORKDIR /opt/ssi-agent
+#RUN npm -g install typescript@4.9.5 pnpm && SHELL=bash pnpm setup && source /root/.bashrc
+
+
+COPY ./ .
+
+
+RUN NODE_ENV=development pnpm install
+RUN pnpm -g add typescript@4.9.5
+RUN NODE_ENV=development pnpm build
+
+WORKDIR /opt/ssi-agent/packages/agent
+ENTRYPOINT ["pnpm", "start:dev"]

@@ -1,0 +1,27 @@
+networks:
+  energyshr-network:
+    name: energyshr-network
+    attachable: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/16
+          ip_range: 172.21.5.0/24
+          gateway: 172.21.0.1
+
+services:
+  energyshr-agent:
+    container_name: energyshr-agent
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - docker/.env.energyshr-agent
+    tty: true
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.energyshr-agent
+    ports:
+      - "2999:2999"
+      - "3001:3001"
+    networks:
+      - energyshr-network
